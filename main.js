@@ -36,13 +36,15 @@ document.addEventListener('keydown', (event) => {
     if (btn.classList.contains("visibile")){
         return;
     }
+    //premo enter
     if (name == "Enter"){
-        vittoria = true;
-        if (listRow.length != rowElement){
+        if (listRow.length != rowElement){    vittoria = true; 
             //not enough letter
             vittoria = false;
         }else{
+            clearSpin();
             for (var i = 0; i < rowElement; i++){
+            listLetter[chanceUsate][i].classList.remove("active");
                 //se la lettera c'e
                 if (lettera[i] == listRow[i]){
                     listLetter[chanceUsate][i].classList.add("green")
@@ -56,6 +58,9 @@ document.addEventListener('keydown', (event) => {
             chanceUsate++;
             listRow = []; 
             step = 0;
+
+            //spin
+            spin(listLetter, chanceUsate);
         }
 
         if (vittoria){
@@ -67,7 +72,7 @@ document.addEventListener('keydown', (event) => {
         return;
     }
     //se preme indietro va una lettera indietro
-    if (name == "Backspace"){
+    else if (name == "Backspace"){
         if (step > 0){
             step--;
             listLetter[chanceUsate][step].innerHTML = "";
@@ -75,12 +80,15 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 
-    if (isLetter(name) && step != rowElement){
+    else if (isLetter(name) && step != rowElement){
         listLetter[chanceUsate][step].innerHTML = name;
         listRow.push(name);
         step++;
     }
-    listLetter[chanceUsate][step-1].classList.toggle("active");
+    else{
+        return
+    }
+    listLetter[chanceUsate][step-1].classList.add("active");
 });
 
 
@@ -125,3 +133,16 @@ var openFile = function(event) {
           console.log(text)
         }
     }
+
+
+function spin(listLetter, chanceUsate){
+    for (var i = 0; i < rowElement; i++){
+        listLetter[chanceUsate-1][i].classList.add("spin")
+        listLetter[chanceUsate-1][i].style.setProperty("--delaySpin", i/7)
+    }
+}
+function clearSpin(){
+    for (var i = 0; i < rowElement; i++){
+        listLetter[chanceUsate][i].classList.remove("spin")
+    }
+}
