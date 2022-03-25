@@ -83,7 +83,7 @@ div > i{
     width: 100%;
     background-color: transparent;
     border: none;
-    font-size: 0px;
+    /* font-size: 0px; */
 }
 .container input:focus{
     outline: none;

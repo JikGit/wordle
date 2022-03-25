@@ -7,6 +7,7 @@ const menuButton = document.getElementById("menuButton");
 const closeMenuButton = document.querySelector("#menuDisplay > div");
 const menuDisplay = document.getElementById("menuDisplay");
 const btnLettere = document.querySelector(".form-input div.submit");
+const inputContainer = document.querySelector(".container > input");
 
 var rowElement = 5;
 var chance = 5;
@@ -63,7 +64,7 @@ btn.addEventListener("click", () => {
     btn.classList.remove("visibile")
 })
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keyup', function(event) {
     var name = event.key;
     var vittoria;
 
@@ -165,6 +166,7 @@ function spin(listLetter, chanceUsate){
         listLetter[chanceUsate][i].style.setProperty("--delaySpin", i/7)
     }
 }
+
 function clearSpin(){
     for (var i = 0; i < rowElement; i++){
         listLetter[chanceUsate][i].classList.remove("spin")
