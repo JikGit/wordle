@@ -18,7 +18,7 @@ var parola = getWord(rowElement);
 
 createElement(listLetter);
 setDimensionContainer(container);
-prompt()
+
 btnLettere.addEventListener("click", () => {
     var radios = document.getElementsByName('lettere');
     for (var radio of radios){

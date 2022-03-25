@@ -77,6 +77,14 @@ div > i{
 
 }
 
+.container input{
+    position: absolute; 
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+}
+
 .letter{  
     --delaySpin: 0;
     width: 70px;
