@@ -4,15 +4,45 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 </head>
 <body>
+	<div id="menuButton">
+		<i id="open" class="fas fa-bars"></i>
+	</div>
+	<div id="menuDisplay" class="">
+		<div class="close">
+			<div>
+				<i id="close" class="fas fa-times "></i>
+			</div>
+		</div>
+		<form> 
+			<div class="form-input">
+				<p class="4Lettere">4 Lettere<input type="radio" id="lettere" name="lettere" value="4"></p>
+				<p class="5Lettere">5 Lettere<input type="radio" id="lettere" name="lettere" value="5"></p>
+				<p class="6Lettere">6 Lettere<input type="radio" id="lettere" name="lettere" value="6"></p>
+				<p class="7Lettere">7 Lettere<input type="radio" id="lettere" name="lettere" value="7"></p>
+				<div class="submit">Invio</div>
+			</div>
+		</form>
+	</div>
 	<div class="container">
 		<div class="vittoria ">Vittoria</div>
-		<div class="sconfitta ">Sconfitta</div>
+		<div class="sconfitta ">Sconfitta <p>la parola era </p></div>
 	</div>
 	<div>
 		<button class="btn ">Try again</button>
 	</div>
 </body>
+<script src="./parole/1.js"></script>
+<script src="./parole/2.js"></script>
+<script src="./parole/3.js"></script>
+<script src="./parole/4.js"></script>
+<script src="./parole/5.js"></script>
+<script src="./parole/6.js"></script>
+<script src="./parole/7.js"></script>
+<script src="./parole/8.js"></script>
+<script src="./parole/9.js"></script>
+<script src="./parole/dict.js"></script>
 <script src="./main.js"></script>
 </html>

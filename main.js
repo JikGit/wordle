@@ -2,16 +2,50 @@ const container = document.querySelector(".container");
 const btn = document.querySelector(".btn");
 const vittoriaDiv = document.querySelector(".vittoria");
 const sconfittaDiv = document.querySelector(".sconfitta");
+const sconfittaText = document.querySelector(".sconfitta>p");
+const menuButton = document.getElementById("menuButton");
+const closeMenuButton = document.querySelector("#menuDisplay > div");
+const menuDisplay = document.getElementById("menuDisplay");
+const btnLettere = document.querySelector(".form-input div.submit");
+
 var rowElement = 5;
 var chance = 5;
 var chanceUsate = 0;
 var listLetter = [];
 var listRow = [];
 var step = 0;
-var lettera = "capra";
+var parola = getWord(rowElement);
 
 createElement(listLetter);
 setDimensionContainer(container);
+prompt()
+btnLettere.addEventListener("click", () => {
+    var radios = document.getElementsByName('lettere');
+    for (var radio of radios){
+        if (radio.checked) {
+            listLetter = [];
+            chanceUsate = 0;
+            listRow = [];
+            step = 0;
+            rowElement = radio.value;
+            removeElement();
+            createElement(listLetter);
+            setDimensionContainer(container);
+            parola = getWord(rowElement);
+        }
+    }
+    menuDisplay.classList.remove("visibile")
+
+})
+
+closeMenuButton.addEventListener("click", () => {
+    menuDisplay.classList.remove("visibile")
+})
+
+menuButton.addEventListener("click", () => {
+    addVisible(menuDisplay);
+})
+
 
 btn.addEventListener("click", () => {
     for (var x = 0; x < chanceUsate; x++){
@@ -38,36 +72,35 @@ document.addEventListener('keydown', (event) => {
     }
     //premo enter
     if (name == "Enter"){
-        if (listRow.length != rowElement){    vittoria = true; 
-            //not enough letter
-            vittoria = false;
+        if (listRow.length != rowElement || checkWord(listRow.join(''), rowElement) == -1){    
+            return;
         }else{
-            clearSpin();
             for (var i = 0; i < rowElement; i++){
             listLetter[chanceUsate][i].classList.remove("active");
                 //se la lettera c'e
-                if (lettera[i] == listRow[i]){
+                if (parola[i] == listRow[i]){
                     listLetter[chanceUsate][i].classList.add("green")
-                }else if (lettera.includes(listRow[i])){
+                }else if (parola.includes(listRow[i])){
                     listLetter[chanceUsate][i].classList.add("yellow")
-                    vittoria = false;
-                }else{
-                    vittoria = false;
                 }
             }
+            //spin
+            spin(listLetter, chanceUsate);
             chanceUsate++;
+
+            if (parola == listRow.join('')){
+                addVisible(vittoriaDiv);
+                addVisible(btn);
+            }
+            else if (chanceUsate == chance){
+                addVisible(sconfittaDiv);
+                sconfittaText.innerHTML += parola;
+                addVisible(btn);
+            }
+
             listRow = []; 
             step = 0;
 
-            //spin
-            spin(listLetter, chanceUsate);
-        }
-
-        if (vittoria){
-            vittoriaEvent();
-        }
-        else if (chanceUsate == chance){
-            sconfittaEvent();
         }
         return;
     }
@@ -76,6 +109,7 @@ document.addEventListener('keydown', (event) => {
         if (step > 0){
             step--;
             listLetter[chanceUsate][step].innerHTML = "";
+            listRow.pop();
         }
         return;
     }
@@ -97,9 +131,16 @@ function setDimensionContainer(container){
     container.style.setProperty("--height", chance*70+chance*5) 
 }
 
+function removeElement(){
+    var allElement = document.querySelectorAll(".letter");
+    for (elm of allElement){
+        container.removeChild(elm);
+    }
+}
+
 function createElement(listLetter){
 	for(var i=0; i<chance; i++) {
-		listLetter.push([]);
+	    listLetter.push([]);
 	}
 
     for (var i = 0; i < rowElement*chance; i++){
@@ -114,31 +155,14 @@ function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
 }
 
-function vittoriaEvent(){
-    vittoriaDiv.classList.add("visibile")
-    btn.classList.add("visibile")
+function addVisible(element){
+    element.classList.add("visibile")
 }
-
-function sconfittaEvent(){
-    sconfittaDiv.classList.add("visibile")
-    btn.classList.add("visibile")
-}
-
-var openFile = function(event) {
-        var input = event.target;
-
-        var reader = new FileReader();
-        reader.onload = function(){
-          var text = reader.result;
-          console.log(text)
-        }
-    }
-
 
 function spin(listLetter, chanceUsate){
     for (var i = 0; i < rowElement; i++){
-        listLetter[chanceUsate-1][i].classList.add("spin")
-        listLetter[chanceUsate-1][i].style.setProperty("--delaySpin", i/7)
+        listLetter[chanceUsate][i].classList.add("spin")
+        listLetter[chanceUsate][i].style.setProperty("--delaySpin", i/7)
     }
 }
 function clearSpin(){

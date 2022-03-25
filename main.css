@@ -7,6 +7,60 @@ body{
     background-color: #121213;
 }
 
+#menuButton{
+    width: 90px;
+    height: 90px;
+    position: sticky;
+}
+
+div > i{
+    color: white;
+    font-size: 70px;
+    margin: 20px 0 0 20px;
+}
+
+
+#menuDisplay {
+    width: 600px;
+    height: 600px;
+    background-color: rgb(0, 0, 0, 0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+}
+
+#menuDisplay > div{
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    color: white;
+}
+
+#menuDisplay .form-input{padding: 150px;} 
+#menuDisplay .form-input p input{
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+}
+
+#menuDisplay p{
+    color: red;
+    font-size: 60px;
+}
+
+#menuDisplay div.submit{
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background :rgb(87, 26, 26);
+    color: white;
+    font-size: 20px;
+    margin: auto;
+}
+
 .container{
     --width: 375;
     --height: 375;
@@ -46,9 +100,8 @@ body{
 
 .letter.yellow{background-color: rgb(194, 194, 5);}
 .letter.green{background-color: rgb(15, 255, 67);}
-.letter.active{
-    animation: scale 0.4s ease;
-}
+/* .letter.active{
+} */
 
 
 .btn{
@@ -79,13 +132,19 @@ div.vittoria.visibile{
     top: 50%;
     transform: translate(0, -50%);
     color: white;
+    padding-top: 50px;
     font-size: 90px;
     text-align: center;
-    line-height: 300px;
     z-index: 10;
 }
 
+div.sconfitta.visibile > p{
+    font-size: 33px;
+    color: red;
+}
+
 .btn:not(.visibile),
+#menuDisplay:not(.visibile),
 div.vittoria:not(.visibile),
 div.sconfitta:not(.visibile){
     display:none;
