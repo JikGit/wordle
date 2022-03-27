@@ -15401,8 +15401,8 @@ int main(){
 	"winner",
 	"wolf",
 	"woofer",
-	"word",
-	"word",
+	"parola",
+	"parola",
 	"work",
 	"working",
 	"wwf",
@@ -15490,27 +15490,27 @@ int main(){
 
 	mergeSort(dict, n);
 
-	int nWord;
+	int nparola;
 	int inizio, fine;
 	
-	for (nWord = 0; nWord < 10; nWord++){
-		index = binarySearch(dict, 0, n - 1, nWord);
+	for (nparola = 0; nparola < 10; nparola++){
+		index = binarySearch(dict, 0, n - 1, nparola);
 		for (int i = index; i < n; i++){
-			if (dict[i].length() != nWord){
+			if (dict[i].length() != nparola){
 				fine = i;
 				break;
 			}
 		}
-		index = binarySearch(dict, 0, n - 1, nWord);
+		index = binarySearch(dict, 0, n - 1, nparola);
 		for (int i= index; i >= 0; i--){
-			if (dict[i].length() != nWord){
+			if (dict[i].length() != nparola){
 				inizio = i+1;
 				break;
 			}
 		}		
 		std::ofstream outdata;
 
-		outdata.open(std::to_string(nWord)+".txt"); // opens the file
+		outdata.open(std::to_string(nparola)+".txt"); // opens the file
 		if(!outdata ) { // file couldn't be opened
 			std::cerr << "error";
 		}

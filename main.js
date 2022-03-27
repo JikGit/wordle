@@ -9,14 +9,14 @@ const menuDisplay = document.getElementById("menuDisplay");
 const btnLettere = document.querySelector(".form-input div.submit");
 const inputContainer = document.querySelector(".container > input");
 
-var rowElement = 5;
-var chance = 5;
-var chanceUsate = 0;
+var rowElement;
+var chance;
+var chanceUsate;
 var listLetter = [];
 var listRow = [];
-var step = 0;
-var parola = getWord(rowElement);
-
+var step;
+var parola;
+resetAllValue(5, 5);
 createElement(listLetter);
 setDimensionContainer(container);
 
@@ -24,19 +24,14 @@ btnLettere.addEventListener("click", () => {
     var radios = document.getElementsByName('lettere');
     for (var radio of radios){
         if (radio.checked) {
-            listLetter = [];
-            chanceUsate = 0;
-            listRow = [];
-            step = 0;
-            rowElement = radio.value;
             removeElement();
+            resetAllValue(radio.value, 5);
             createElement(listLetter);
             setDimensionContainer(container);
-            parola = getWord(rowElement);
+            parola = getparola(rowElement);
         }
     }
     menuDisplay.classList.remove("visibile")
-
 })
 
 closeMenuButton.addEventListener("click", () => {
@@ -44,7 +39,7 @@ closeMenuButton.addEventListener("click", () => {
 })
 
 menuButton.addEventListener("click", () => {
-    addVisible(menuDisplay);
+    menuDisplay.classList.add("visibile")
 })
 
 
@@ -64,44 +59,48 @@ btn.addEventListener("click", () => {
     btn.classList.remove("visibile")
 })
 
-document.addEventListener('keyup', function(event) {
-    var name = event.key;
-    var vittoria;
+// document.addEventListener('keyup', function keyPressed(event, phone = false) {
+inputContainer.addEventListener("keyup", (event) => {
+    var name = event.key;        
 
     if (btn.classList.contains("visibile")){
         return;
     }
     //premo enter
     if (name == "Enter"){
-        if (listRow.length != rowElement || checkWord(listRow.join(''), rowElement) == -1){    
+        if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1){    
             return;
         }else{
+            //prima controllo per i vardi, cosi' se ci sono due lettere uguali una verde e l'altra gialla
             for (var i = 0; i < rowElement; i++){
-            listLetter[chanceUsate][i].classList.remove("active");
+                listLetter[chanceUsate][i].classList.remove("active");
                 //se la lettera c'e
                 if (parola[i] == listRow[i]){
+                    parola = parola.substring(0, i) + " " + parola.substring(i + 1);
                     listLetter[chanceUsate][i].classList.add("green")
-                }else if (parola.includes(listRow[i])){
+                }
+            }
+
+            for (var i = 0; i < rowElement; i++){
+                if (parola.includes(listRow[i])){
                     listLetter[chanceUsate][i].classList.add("yellow")
                 }
             }
             //spin
-            spin(listLetter, chanceUsate);
+            toggleSpin(listLetter, chanceUsate);
             chanceUsate++;
 
             if (parola == listRow.join('')){
-                addVisible(vittoriaDiv);
-                addVisible(btn);
+                vittoriaDiv.classList.add("visibile")
+                btn.classList.add("visibile")
             }
             else if (chanceUsate == chance){
-                addVisible(sconfittaDiv);
+                sconfittaDiv.classList.add("visibile")
                 sconfittaText.innerHTML += parola;
-                addVisible(btn);
+                btn.classList.add("visibile")
             }
-
             listRow = []; 
             step = 0;
-
         }
         return;
     }
@@ -123,8 +122,18 @@ document.addEventListener('keyup', function(event) {
     else{
         return
     }
-    listLetter[chanceUsate][step-1].classList.add("active");
+    // listLetter[chanceUsate][step-1].classList.add("active");
 });
+
+function resetAllValue(lettere, nChance){
+    rowElement = lettere;
+    chance = nChance;
+    chanceUsate = 0;
+    listLetter = [];
+    listRow = [];
+    step = 0;
+    parola = getparola(rowElement);
+}
 
 
 function setDimensionContainer(container){
@@ -156,19 +165,93 @@ function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
 }
 
-function addVisible(element){
-    element.classList.add("visibile")
-}
-
-function spin(listLetter, chanceUsate){
+function toggleSpin(listLetter, chanceUsate){
     for (var i = 0; i < rowElement; i++){
-        listLetter[chanceUsate][i].classList.add("spin")
-        listLetter[chanceUsate][i].style.setProperty("--delaySpin", i/7)
+        listLetter[chanceUsate][i].classList.toggle("spin");
+        listLetter[chanceUsate][i].style.setProperty("--delaySpin", i/7);
     }
 }
 
-function clearSpin(){
-    for (var i = 0; i < rowElement; i++){
-        listLetter[chanceUsate][i].classList.remove("spin")
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

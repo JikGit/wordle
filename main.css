@@ -83,6 +83,7 @@ div > i{
     width: 100%;
     background-color: transparent;
     border: none;
+    color: transparent;
     /* font-size: 0px; */
 }
 .container input:focus{

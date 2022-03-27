@@ -37,14 +37,14 @@ function getDict(lettere){
     return dict;
 }
 
-function getWord(lettere){
+function getparola(lettere){
     var dict = getDict(lettere);
     indexParola = parseInt(Math.random() * dict.length / lettere);
     parola = dict[indexParola];
     return parola;
 }
 
-function checkWord(word, lettere){
+function checkparola(parola, lettere){
     var dict = getDict(lettere);
-    return binarySearch(dict, word)
+    return binarySearch(dict, parola)
 }
