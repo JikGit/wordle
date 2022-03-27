@@ -167,7 +167,7 @@ div.errore.visibile {
     font-size: 30px;
     color: white;
     text-align: center;
-    opacity: 50%;
+    transition: opacity 1s;
 }
 
 .btn:not(.visibile),
@@ -176,7 +176,6 @@ div.vittoria:not(.visibile),
 div.sconfitta:not(.visibile),
 div.errore:not(.visibile){
     display:none;
-    opacity: 0;
 }
 
 

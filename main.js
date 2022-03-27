@@ -61,16 +61,25 @@ btn.addEventListener("click", () => {
 })
 
 // document.addEventListener('keyup', function keyPressed(event, phone = false) {
-inputContainer.addEventListener("keydown", (event) => {
-    var name = event.key;
+// inputContainer.addEventListener("keydown", (event) => {
+//     keyD(event, false);
+// });
+
+function keyD(){
+    var name = inputContainer.value;
+    console.log(name);
+    inputContainer.value = "";
 
     if (btn.classList.contains("visibile")) {
         return;
     }
     //premo enter
-    if (name == "Enter") {
+    if (name == "" && listRow.length == rowElement) {
         if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1) {
             errore.classList.add("visibile");
+            setTimeout(function () {
+                errore.classList.remove("visibile");
+            }, 1000);
         } else {
             //prima controllo per i vardi, cosi' se ci sono due lettere uguali una verde e l'altra gialla
             for (var i = 0; i < rowElement; i++) {
@@ -106,7 +115,7 @@ inputContainer.addEventListener("keydown", (event) => {
         return;
     }
     //se preme indietro va una lettera indietro
-    else if (name == "Backspace") {
+    else if (name == "") {
         if (step > 0) {
             step--;
             listLetter[chanceUsate][step].innerHTML = "";
@@ -124,7 +133,7 @@ inputContainer.addEventListener("keydown", (event) => {
         return
     }
     // listLetter[chanceUsate][step-1].classList.add("active");
-});
+}
 
 function resetAllValue(lettere, nChance) {
     rowElement = lettere;
