@@ -47,7 +47,7 @@ div > i{
 }
 
 #menuDisplay p{
-    color: red;
+    color: rgb(255, 255, 255);
     font-size: 60px;
 }
 
@@ -84,9 +84,9 @@ div > i{
     background-color: transparent;
     border: none;
     color: transparent;
-    /* font-size: 0px; */
 }
 .container input:focus{
+    text-decoration: none;
     outline: none;
 }
 
@@ -107,7 +107,7 @@ div > i{
 .letter.spin{
     /* spin */
     transition: transform 1s ease calc(var(--delaySpin) * 1s);
-    transform: rotateY(360deg);
+    transform: rotateX(360deg);
 }
 
 .letter.yellow{background-color: rgb(194, 194, 5);}
@@ -155,11 +155,28 @@ div.sconfitta.visibile > p{
     color: red;
 }
 
+/* div.errore{ */
+
+div.errore.visibile {
+    width: 100px;
+    height: 60px;
+    line-height: 55px;
+    position: absolute;
+    top: -30%;
+    border: 2px solid white;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    opacity: 50%;
+}
+
 .btn:not(.visibile),
 #menuDisplay:not(.visibile),
 div.vittoria:not(.visibile),
-div.sconfitta:not(.visibile){
+div.sconfitta:not(.visibile),
+div.errore:not(.visibile){
     display:none;
+    opacity: 0;
 }
 
 
