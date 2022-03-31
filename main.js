@@ -8,7 +8,7 @@ const menuButton = document.getElementById("menuButton");
 const closeMenuButton = document.querySelector("#menuDisplay > div");
 const menuDisplay = document.getElementById("menuDisplay");
 const btnLettere = document.querySelector(".form-input div.submit");
-const inputContainer = document.querySelector(".container > input");
+
 
 var rowElement;
 var chance;
@@ -21,6 +21,7 @@ resetAllValue(5, 5);
 createElement(listLetter);
 setDimensionContainer(container);
 
+//MENU
 btnLettere.addEventListener("click", () => {
     var radios = document.getElementsByName('lettere');
     for (var radio of radios) {
@@ -34,16 +35,15 @@ btnLettere.addEventListener("click", () => {
     }
     menuDisplay.classList.remove("visibile")
 })
-
+//menu
 closeMenuButton.addEventListener("click", () => {
     menuDisplay.classList.remove("visibile")
 })
-
+//menu
 menuButton.addEventListener("click", () => {
     menuDisplay.classList.add("visibile")
 })
-
-
+//menu
 btn.addEventListener("click", () => {
     for (var x = 0; x < chanceUsate; x++) {
         for (var i = 0; i < rowElement; i++) {
@@ -60,78 +60,7 @@ btn.addEventListener("click", () => {
     btn.classList.remove("visibile")
 })
 
-// document.addEventListener('keyup', function keyPressed(event, phone = false) {
-// inputContainer.addEventListener("keydown", (event) => {
-//     keyD(event, false);
-// });
-
 function keyD(){
-    var name = inputContainer.value;
-    console.log(name);
-    inputContainer.value = "";
-
-    if (btn.classList.contains("visibile")) {
-        return;
-    }
-    //premo enter
-    if (name == "" && listRow.length == rowElement) {
-        if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1) {
-            errore.classList.add("visibile");
-            setTimeout(function () {
-                errore.classList.remove("visibile");
-            }, 1000);
-        } else {
-            //prima controllo per i vardi, cosi' se ci sono due lettere uguali una verde e l'altra gialla
-            for (var i = 0; i < rowElement; i++) {
-                listLetter[chanceUsate][i].classList.remove("active");
-                //se la lettera c'e
-                if (parola[i] == listRow[i]) {
-                    parola = parola.substring(0, i) + " " + parola.substring(i + 1);
-                    listLetter[chanceUsate][i].classList.add("green")
-                }
-            }
-
-            for (var i = 0; i < rowElement; i++) {
-                if (parola.includes(listRow[i])) {
-                    listLetter[chanceUsate][i].classList.add("yellow")
-                }
-            }
-            //spin
-            toggleSpin(listLetter, chanceUsate);
-            chanceUsate++;
-
-            if (parola == listRow.join('')) {
-                vittoriaDiv.classList.add("visibile")
-                btn.classList.add("visibile")
-            }
-            else if (chanceUsate == chance) {
-                sconfittaDiv.classList.add("visibile")
-                sconfittaText.innerHTML += parola;
-                btn.classList.add("visibile")
-            }
-            listRow = [];
-            step = 0;
-        }
-        return;
-    }
-    //se preme indietro va una lettera indietro
-    else if (name == "") {
-        if (step > 0) {
-            step--;
-            listLetter[chanceUsate][step].innerHTML = "";
-            listRow.pop();
-        }
-        return;
-    }
-
-    else if (isLetter(name) && step != rowElement) {
-        listLetter[chanceUsate][step].innerHTML = name;
-        listRow.push(name);
-        step++;
-    }
-    else {
-        return
-    }
     // listLetter[chanceUsate][step-1].classList.add("active");
 }
 
@@ -182,86 +111,79 @@ function toggleSpin(listLetter, chanceUsate) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+document.addEventListener("keyup", (e) => {
+    let name = String(e.key)
+    if (btn.classList.contains("visibile")) {
+        return;
+    }
+    //premo enter
+    if (name == "Enter"){
+        if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1) {
+            //ERRORE
+            errore.classList.add("visibile");
+            setTimeout(function () {
+                errore.classList.remove("visibile");
+            }, 1000);
+        } else {
+            //prima controllo per i verdi, cosi' se ci sono due lettere uguali una verde e l'altra gialla
+            for (var i = 0; i < rowElement; i++) {
+                listLetter[chanceUsate][i].classList.remove("active");
+                //se la lettera c'e
+                if (parola[i] == listRow[i]) {
+                    parola = parola.substring(0, i) + " " + parola.substring(i + 1);
+                    listLetter[chanceUsate][i].classList.add("green")
+                }
+            }
+
+            for (var i = 0; i < rowElement; i++) {
+                if (parola.includes(listRow[i])) {
+                    listLetter[chanceUsate][i].classList.add("yellow")
+                }
+            }
+            //spin
+            toggleSpin(listLetter, chanceUsate);
+            chanceUsate++;
+
+            //check per vittoria
+            if (parola == listRow.join('')) {
+                vittoriaDiv.classList.add("visibile")
+                btn.classList.add("visibile")
+            }
+            //check per sconfitta
+            else if (chanceUsate == chance) {
+                sconfittaDiv.classList.add("visibile")
+                sconfittaText.innerHTML += parola;
+                btn.classList.add("visibile")
+            }
+            //aggiorno valori
+            listRow = [];
+            step = 0;
+        }
+        return;
+    }
+    //se preme indietro va una lettera indietro
+    else if (name == "Del" || name == "Backspace") {
+        if (step > 0) {
+            step--;
+            listLetter[chanceUsate][step].innerHTML = "";
+            listRow.pop();
+        }
+        return;
+    }
+    //lettera accettata
+    else if (isLetter(name) && step != rowElement) {
+        listLetter[chanceUsate][step].innerHTML = name;
+        listRow.push(name);
+        step++;
+    }
+})
+
+//SE PREMO I TASTI METTE UN EVENT INPUT CON QUEL TASTO
+document.getElementById("keyboard-cont").addEventListener("click", (e) => {
+    const target = e.target;
+    if (!target.classList.contains("keyboard-button")) {
+        return
+    }
+    const key = target.textContent;
+    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
+})
