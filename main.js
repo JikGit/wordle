@@ -16,7 +16,9 @@ var listLetter = [];
 var listRow = [];
 var step;
 var parola;
-resetAllValue(5, 5);
+var nChance = 7;
+var nLettere = 5;
+resetAllValue(nLettere, nChance);
 createElement(listLetter);
 setDimensionContainer(container);
 
