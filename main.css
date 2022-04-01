@@ -98,9 +98,9 @@ div > i{
 
 .letter.yellow{background-color: rgb(194, 194, 5);}
 .letter.green{background-color: rgb(15, 255, 67);}
-/* .letter.active{
-} */
-
+.letter.shake{
+    animation: shake 250ms ease-in-out;
+}
 
 .btn{
     height: 50px; 
@@ -160,6 +160,7 @@ div.errore{
 div.errore.visibile{
     opacity: 1;
 }
+
 /* TASTIERA */
 #keyboard-cont {
     margin: 1rem 0;
@@ -177,10 +178,14 @@ div.errore.visibile{
 }
 
 .keyboard-button {
-    font-size: 1rem;
+    background: rgb(17, 16, 16);
+    color: white;
+    border: 3px solid white;
+    border-radius: 5px;
+    font-size: 3rem;
     font-weight: 700;
     padding: 0.5rem;
-    margin: 0 2px;
+    margin: 0 4px;
     cursor: pointer;
     text-transform: uppercase;
 }
@@ -189,7 +194,7 @@ div.errore.visibile{
 #menuDisplay:not(.visibile),
 div.vittoria:not(.visibile),
 div.sconfitta:not(.visibile){
-    display:none;
+    display: none;
 }
 
 
@@ -199,4 +204,29 @@ div.sconfitta:not(.visibile){
   50%  {transform: scale(1.2)}
   75%  {transform: scale(0.9)}
   100% {transform: scale(1)}
+}
+@keyframes shake {
+  10% {
+    transform: translateX(-5%);
+  }
+
+  30% {
+    transform: translateX(5%);
+  }
+
+  50% {
+    transform: translateX(-7.5%);
+  }
+
+  70% {
+    transform: translateX(7.5%);
+  }
+
+  90% {
+    transform: translateX(-5%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }

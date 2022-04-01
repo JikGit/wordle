@@ -9,7 +9,6 @@ const closeMenuButton = document.querySelector("#menuDisplay > div");
 const menuDisplay = document.getElementById("menuDisplay");
 const btnLettere = document.querySelector(".form-input div.submit");
 
-
 var rowElement;
 var chance;
 var chanceUsate;
@@ -58,11 +57,9 @@ btn.addEventListener("click", () => {
     vittoriaDiv.classList.remove("visibile")
     sconfittaDiv.classList.remove("visibile")
     btn.classList.remove("visibile")
+    parola = getparola(rowElement);
 })
 
-function keyD(){
-    // listLetter[chanceUsate][step-1].classList.add("active");
-}
 
 function resetAllValue(lettere, nChance) {
     rowElement = lettere;
@@ -112,14 +109,16 @@ function toggleSpin(listLetter, chanceUsate) {
 }
 
 document.addEventListener("keyup", (e) => {
-    let name = String(e.key)
+    let name = String(e.key);
     if (btn.classList.contains("visibile")) {
         return;
     }
     //premo enter
     if (name == "Enter"){
+        var tempParola = parola;
         if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1) {
             //ERRORE
+            shakeTiles(document.querySelectorAll(".letter.active"));
             errore.classList.add("visibile");
             setTimeout(function () {
                 errore.classList.remove("visibile");
@@ -129,15 +128,17 @@ document.addEventListener("keyup", (e) => {
             for (var i = 0; i < rowElement; i++) {
                 listLetter[chanceUsate][i].classList.remove("active");
                 //se la lettera c'e
-                if (parola[i] == listRow[i]) {
-                    parola = parola.substring(0, i) + " " + parola.substring(i + 1);
+                if (tempParola[i] == listRow[i]) {
+                    tempParola = tempParola.substring(0, i) + " " + tempParola.substring(i + 1);
                     listLetter[chanceUsate][i].classList.add("green")
                 }
             }
 
             for (var i = 0; i < rowElement; i++) {
-                if (parola.includes(listRow[i])) {
+                if (tempParola.includes(listRow[i])) {
                     listLetter[chanceUsate][i].classList.add("yellow")
+                }else if (!tempParola.includes(listRow[i])) {
+                    document.querySelector(".keyboard-button." + listRow[i]).style.opacity = "50%";
                 }
             }
             //spin
@@ -167,12 +168,14 @@ document.addEventListener("keyup", (e) => {
             step--;
             listLetter[chanceUsate][step].innerHTML = "";
             listRow.pop();
+            listLetter[chanceUsate][step].classList.remove("active");
         }
         return;
     }
     //lettera accettata
     else if (isLetter(name) && step != rowElement) {
         listLetter[chanceUsate][step].innerHTML = name;
+        listLetter[chanceUsate][step].classList.add("active");
         listRow.push(name);
         step++;
     }
@@ -187,3 +190,16 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
     const key = target.textContent;
     document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
 })
+
+function shakeTiles(tiles) {
+    tiles.forEach(tile => {
+        tile.classList.add("shake")
+        tile.addEventListener(
+        "animationend",
+        () => {
+            tile.classList.remove("shake")
+            },
+        { once: true }
+        )
+    })
+}
