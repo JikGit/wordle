@@ -169,7 +169,7 @@ div.errore.visibile{
 
 /* TASTIERA */
 #keyboard-cont {
-    width: 100vw;
+    width: 100%;
     position: absolute;
     bottom: 2.5vh;
     font-size: 1vh;
@@ -192,7 +192,7 @@ div.errore.visibile{
     color: white;
     border: 0.1vh solid white;
     border-radius: 10%;
-    font-size: 3em;
+    font-size: 2.7vh;
     font-weight: 700;
     padding: 0.5em;
     margin: 0 0.2%;
