@@ -22,13 +22,14 @@ resetAllValue(nLettere, nChance);
 createElement(listLetter);
 setDimensionContainer(container);
 
+
 //MENU
 btnLettere.addEventListener("click", () => {
     var radios = document.getElementsByName('lettere');
     for (var radio of radios) {
         if (radio.checked) {
             removeElement();
-            resetAllValue(radio.value, 5);
+            resetAllValue(radio.value, nChance);
             createElement(listLetter);
             setDimensionContainer(container);
             parola = getparola(rowElement);
@@ -59,6 +60,7 @@ btn.addEventListener("click", () => {
     vittoriaDiv.classList.remove("visibile")
     sconfittaDiv.classList.remove("visibile")
     btn.classList.remove("visibile")
+    removeAllOpacityKeyboard(document.querySelectorAll("#keyboard-cont .keyboard-button"));
     parola = getparola(rowElement);
 })
 
@@ -193,6 +195,7 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
     document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
 })
 
+//Se ERRORE FA SHAKE
 function shakeTiles(tiles) {
     tiles.forEach(tile => {
         tile.classList.add("shake")
@@ -203,5 +206,10 @@ function shakeTiles(tiles) {
             },
         { once: true }
         )
+    })
+}
+function removeAllOpacityKeyboard(keys){
+    keys.forEach(key=> {
+        key.style.opacity = 1;
     })
 }
