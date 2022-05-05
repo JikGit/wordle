@@ -1,40 +1,35 @@
 var parola;
 var text;
-var lettere = 5;
 var indexParola;
 
-function binarySearch(items, value){
-    var startIndex  = 0,
-        stopIndex   = items.length - 1,
-        middle      = Math.floor((stopIndex + startIndex)/2);
+function binarySearch(arr, val, start = 0, end = arr.length - 1) {
+  const mid = Math.floor((start + end) / 2);
 
-    while(items[middle] != value && startIndex < stopIndex){
-        //adjust search area
-        if (value < items[middle]){
-            stopIndex = middle - 1;
-        } else if (value > items[middle]){
-            startIndex = middle + 1;
-        }
-        //recalculate middle
-        middle = Math.floor((stopIndex + startIndex)/2);
-    }
-    //make sure it's the right value
-    return (items[middle] != value) ? -1 : middle;
+  if (val === arr[mid]) {
+    return mid;
+  }
+
+  if (start >= end) {
+    return -1;
+  }
+
+  return val < arr[mid]
+    ? binarySearch(arr, val, start, mid - 1)
+    : binarySearch(arr, val, mid + 1, end);
 }
 
 function getDict(lettere){
     if (lettere == 4){
-        var dict = getDict4();
+        return getDict4();
     }else if (lettere == 5){
-        var dict = getDict5();
+        return getDict5();
     }else if (lettere == 6){
-        var dict = getDict6();
+        return getDict6();
     }else if (lettere == 7){
-        var dict = getDict7();
+        return getDict7();
     }else if (lettere == 8){
-        var dict = getDict8();
+        return getDict8();
     }
-    return dict;
 }
 
 function getparola(lettere){

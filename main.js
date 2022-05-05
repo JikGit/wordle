@@ -8,6 +8,7 @@ const menuButton = document.getElementById("menuButton");
 const closeMenuButton = document.querySelector("#menuDisplay > div");
 const menuDisplay = document.getElementById("menuDisplay");
 const btnLettere = document.querySelector(".form-input div.submit");
+const root = document.querySelector(":root");
 
 var rowElement;
 var chance;
@@ -20,8 +21,10 @@ var nChance = 7;
 var nLettere = 5;
 resetAllValue(nLettere, nChance);
 createElement(listLetter);
-setDimensionContainer(container);
 
+//change element/chance in css
+root.style.setProperty("--element" , rowElement);
+root.style.setProperty("--chance" , chance);
 
 //MENU
 btnLettere.addEventListener("click", () => {
@@ -31,8 +34,10 @@ btnLettere.addEventListener("click", () => {
             removeElement();
             resetAllValue(radio.value, nChance);
             createElement(listLetter);
-            setDimensionContainer(container);
             parola = getparola(rowElement);
+			//change element/chance in css
+			root.style.setProperty("--element" , rowElement);
+			root.style.setProperty("--chance" , chance);
         }
     }
     menuDisplay.classList.remove("visibile")
@@ -62,6 +67,9 @@ btn.addEventListener("click", () => {
     btn.classList.remove("visibile")
     removeAllOpacityKeyboard(document.querySelectorAll("#keyboard-cont .keyboard-button"));
     parola = getparola(rowElement);
+	//change element/chance in css
+	root.style.setProperty("--element" , rowElement);
+	root.style.setProperty("--chance" , chance);
 })
 
 
@@ -73,13 +81,12 @@ function resetAllValue(lettere, nChance) {
     listRow = [];
     step = 0;
     parola = getparola(rowElement);
+	//change element/chance in css
+	root.style.setProperty("--element" , rowElement);
+	root.style.setProperty("--chance" , chance);
 }
 
 
-function setDimensionContainer(container) {
-    container.style.setProperty("--width", rowElement * 70 + rowElement * 5)
-    container.style.setProperty("--height", chance * 70 + chance * 5)
-}
 
 function removeElement() {
     var allElement = document.querySelectorAll(".letter");
@@ -118,7 +125,7 @@ document.addEventListener("keyup", (e) => {
         return;
     }
     //premo enter
-    if (name == "Enter"){
+    if (name == "Enter" || name == "Ent"){
         var tempParola = parola;
         if (listRow.length != rowElement || checkparola(listRow.join(''), rowElement) == -1) {
             //ERRORE
@@ -133,7 +140,7 @@ document.addEventListener("keyup", (e) => {
                 listLetter[chanceUsate][i].classList.remove("active");
                 //se la lettera c'e
                 if (tempParola[i] == listRow[i]) {
-                    tempParola = tempParola.substring(0, i) + " " + tempParola.substring(i + 1);
+                    // tempParola = tempParola.substring(0, i) + " " + tempParola.substring(i + 1);
                     listLetter[chanceUsate][i].classList.add("green")
                 }
             }
